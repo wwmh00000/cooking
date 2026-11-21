@@ -1,0 +1,1444 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Arin's World Chef Studio — Merged Dish Art!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #3D2B24;
+    --ink-soft: #6B4F43;
+    --pink-pop: #FF6FA5;
+    --yellow-pop: #FDE047;
+    --mint-pop: #6EE7B7;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Fredoka', 'Nunito', sans-serif;
+    color: var(--ink);
+    background: linear-gradient(135deg, #FEF3C7 0%, #FFE4E6 50%, #DCFCE7 100%);
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(3px, 0.8vh, 12px) clamp(5px, 1vw, 16px);
+  }
+
+  .kitchen-book {
+    width: 100%;
+    max-width: 1380px;
+    height: 100%;
+    max-height: 860px;
+    background: linear-gradient(180deg, #FFFDF8 0%, #FFFBEB 55%, #F0FDF4 100%);
+    border: clamp(2.5px, 0.35vw, 4px) solid var(--ink);
+    border-radius: clamp(16px, 2.2vw, 28px);
+    box-shadow: 0 clamp(4px, 0.7vh, 8px) 0 var(--ink), 0 14px 30px rgba(61, 43, 36, 0.16);
+    padding: clamp(5px, 0.9vh, 12px) clamp(7px, 1.2vw, 18px);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4px, 0.8vh, 10px);
+  }
+
+  @media (orientation: portrait) and (max-width: 720px) {
+    html, body { overflow-y: auto; height: auto; }
+    body { align-items: flex-start; padding: 8px; }
+    .kitchen-book { height: auto; max-height: none; overflow: visible; }
+  }
+
+  .header-wrapper {
+    position: relative;
+    z-index: 2;
+    border-radius: clamp(12px, 1.6vw, 20px);
+    border: clamp(2px, 0.28vw, 3px) solid var(--ink);
+    background: linear-gradient(90deg, #FDE68A 0%, #FBCFE8 50%, #BAE6FD 100%);
+    padding: clamp(3px, 0.65vh, 8px) clamp(8px, 1.2vw, 15px);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .header-bar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .chef-tag {
+    background: #FFFFFF;
+    border: 2px solid var(--ink);
+    box-shadow: 0 2px 0 var(--ink);
+    border-radius: 999px;
+    padding: clamp(2px, 0.4vh, 4px) clamp(7px, 1vw, 12px);
+    font-size: clamp(0.6rem, min(1.1vw, 1.95vh), 0.86rem);
+    font-weight: 700;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .puffy-title {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: clamp(0.82rem, min(2.05vw, 3.3vh), 1.58rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #FB7185;
+    white-space: nowrap;
+    text-shadow:
+      -1.5px -1.5px 0 var(--ink),
+       1.5px -1.5px 0 var(--ink),
+      -1.5px  1.5px 0 var(--ink),
+       1.5px  1.5px 0 var(--ink),
+       0px    2.5px 0 var(--ink);
+  }
+
+  .puffy-title span.gold { color: #FDE047; }
+  .puffy-title span.mint { color: #6EE7B7; }
+
+  .controls-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .sticker-btn {
+    background: #FFF3B0;
+    border: 2px solid var(--ink);
+    box-shadow: 0 2px 0 var(--ink);
+    border-radius: 999px;
+    padding: clamp(2px, 0.4vh, 4px) clamp(6px, 0.95vw, 11px);
+    font-family: inherit;
+    font-size: clamp(0.6rem, min(1.05vw, 1.85vh), 0.82rem);
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.1s;
+  }
+
+  .sticker-btn:active { transform: translateY(1px); }
+  .sticker-btn.pink { background: #FFD6E5; }
+  .sticker-btn.mint { background: #CCFBF1; }
+  .sticker-btn.sky { background: #BAE6FD; }
+
+  .two-pane {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(245px, 37%) 1fr;
+    gap: clamp(7px, 1.2vw, 15px);
+    align-items: stretch;
+  }
+
+  @media (orientation: portrait) and (max-width: 720px) {
+    .two-pane { grid-template-columns: 1fr; }
+    .header-bar { flex-wrap: wrap; justify-content: center; }
+  }
+
+  .left-pane {
+    background: linear-gradient(180deg, #FFFDF7 0%, #FFF7ED 100%);
+    border: clamp(2.5px, 0.35vw, 3.5px) solid var(--ink);
+    border-radius: clamp(16px, 2vw, 26px);
+    box-shadow: 0 4px 0 var(--ink);
+    padding: clamp(5px, 0.9vh, 11px) clamp(7px, 1vw, 13px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(3px, 0.65vh, 7px);
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .cloud-speech {
+    background: #FFFFFF;
+    border: 2px solid var(--ink);
+    box-shadow: 0 2px 0 #FDE68A;
+    border-radius: 14px;
+    padding: clamp(3px, 0.6vh, 6px) clamp(6px, 0.9vw, 11px);
+    font-size: clamp(0.64rem, min(1.15vw, 2vh), 0.88rem);
+    font-weight: 700;
+    color: var(--ink);
+    text-align: center;
+    width: 100%;
+    flex-shrink: 0;
+    line-height: 1.2;
+  }
+
+  .cloud-speech.pop { animation: stickerPop 0.35s ease; }
+
+  @keyframes stickerPop {
+    0% { transform: scale(0.95); }
+    55% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+
+  .kitchen-stage {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    background: radial-gradient(circle at 50% 35%, #FFFFFF 0%, #FEF3C7 62%, #E0F2FE 100%);
+    border: 3px solid var(--ink);
+    border-radius: clamp(16px, 2vw, 24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .chef-svg {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: visible;
+    animation: chefIdle 2.8s ease-in-out infinite;
+  }
+
+  .chef-svg.bounce { animation: chefJump 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+  @keyframes chefIdle {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-2.5px); }
+  }
+
+  @keyframes chefJump {
+    0% { transform: scale(1, 1) translateY(0); }
+    35% { transform: scale(1.05, 0.95) translateY(3px); }
+    70% { transform: scale(0.97, 1.04) translateY(-7px); }
+    100% { transform: scale(1, 1) translateY(0); }
+  }
+
+  @keyframes steamFloat {
+    0%, 100% { transform: translateY(0px); opacity: 0.72; }
+    50% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  .steam-wave { animation: steamFloat 1.8s ease-in-out infinite; }
+
+  .cook-action-row {
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .cook-btn {
+    flex: 1;
+    background: linear-gradient(180deg, #FDE047 0%, #FACC15 100%);
+    border: 2.5px solid var(--ink);
+    box-shadow: 0 3px 0 var(--ink);
+    border-radius: 999px;
+    padding: clamp(4px, 0.7vh, 8px) 10px;
+    font-family: inherit;
+    font-size: clamp(0.7rem, min(1.25vw, 2.2vh), 0.95rem);
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+
+  .cook-btn:active { transform: translateY(2px); }
+
+  .glam-box {
+    width: 100%;
+    background: #FFFFFF;
+    border: 2px solid var(--ink);
+    border-radius: 13px;
+    padding: clamp(3px, 0.6vh, 6px) clamp(7px, 0.9vw, 11px);
+    flex-shrink: 0;
+  }
+
+  .glam-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(2px, 0.35vh, 4px);
+    font-size: clamp(0.62rem, min(1.08vw, 1.85vh), 0.84rem);
+    font-weight: 700;
+  }
+
+  .pct-pill {
+    background: #FB7185;
+    color: #FFFFFF;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 1px 8px;
+    font-size: clamp(0.58rem, min(0.98vw, 1.75vh), 0.76rem);
+    text-shadow: 0 1px 0 var(--ink);
+  }
+
+  .rainbow-track {
+    width: 100%;
+    height: clamp(9px, 1.7vh, 13px);
+    background: #F1F5F9;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .rainbow-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #FDE047 0%, #FB923C 35%, #F472B6 70%, #34D399 100%);
+    border-right: 2px solid var(--ink);
+    border-radius: 999px;
+    transition: width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .right-pane {
+    min-height: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(5px, 0.85vh, 10px);
+  }
+
+  .world-menu-box {
+    background: #FFFFFF;
+    border: clamp(2.2px, 0.3vw, 3.2px) solid var(--ink);
+    border-radius: clamp(14px, 1.7vw, 20px);
+    box-shadow: 0 3.5px 0 var(--ink);
+    padding: clamp(4px, 0.75vh, 8px) clamp(6px, 0.95vw, 11px);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cloud-tag {
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: clamp(1px, 0.3vh, 2.5px) clamp(6px, 0.85vw, 10px);
+    font-size: clamp(0.58rem, min(1.02vw, 1.85vh), 0.78rem);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+  }
+
+  .ct-gold { background: #FDE68A; }
+  .ct-pink { background: #FBCFE8; }
+  .ct-mint { background: #A7F3D0; }
+  .ct-sky  { background: #BAE6FD; }
+
+  .recipe-hint {
+    font-size: clamp(0.56rem, min(0.95vw, 1.7vh), 0.76rem);
+    font-weight: 700;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dish-grid-8 {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: clamp(3px, 0.5vw, 6px);
+  }
+
+  @media (max-width: 720px) {
+    .dish-grid-8 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  .dish-btn {
+    background: #FFFDF7;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    box-shadow: 0 2px 0 var(--ink);
+    padding: clamp(2px, 0.45vh, 5px) 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    cursor: pointer;
+    min-width: 0;
+    transition: transform 0.1s;
+  }
+
+  .dish-btn:active { transform: translateY(1.5px); }
+
+  .dish-btn.active {
+    background: #FDE047;
+    box-shadow: 0 2px 0 var(--ink), 0 0 0 2px #FB7185;
+    transform: translateY(-1px);
+  }
+
+  .dish-mini-svg {
+    width: clamp(24px, min(3.4vw, 4.8vh), 38px);
+    height: clamp(24px, min(3.4vw, 4.8vh), 38px);
+  }
+
+  .dish-name {
+    font-size: clamp(0.46rem, min(0.8vw, 1.4vh), 0.66rem);
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .pantry-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(5px, 0.9vw, 11px);
+  }
+
+  @media (orientation: portrait) and (max-width: 720px) {
+    .pantry-grid { grid-template-columns: 1fr; }
+  }
+
+  .pantry-card {
+    background: #FFFFFF;
+    border: clamp(2.2px, 0.3vw, 3.2px) solid var(--ink);
+    border-radius: clamp(14px, 1.7vw, 20px);
+    box-shadow: 0 3.5px 0 var(--ink);
+    padding: clamp(4px, 0.75vh, 9px) clamp(5px, 0.8vw, 10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(3px, 0.55vh, 6px);
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .pantry-card.theme-pink { background: linear-gradient(180deg, #FFFFFF 0%, #FFF0F7 100%); }
+  .pantry-card.theme-mint { background: linear-gradient(180deg, #FFFFFF 0%, #ECFDF5 100%); }
+  .pantry-card.theme-sky  { background: linear-gradient(180deg, #FFFFFF 0%, #EFF8FF 100%); }
+
+  .ing-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: clamp(4px, 0.65vh, 8px);
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .ing-btn {
+    background: #FFFFFF;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    box-shadow: 0 2px 0 var(--ink);
+    padding: 3px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+    min-width: 0;
+    min-height: 0;
+    transition: transform 0.1s, background 0.15s;
+  }
+
+  .ing-btn:active { transform: translateY(1.5px); }
+
+  .ing-btn.selected {
+    background: #FFF3B0;
+    box-shadow: 0 2px 0 var(--ink), 0 0 0 2.2px #10B981;
+  }
+
+  .ing-art {
+    width: clamp(26px, min(4vw, 5.6vh), 44px);
+    height: clamp(26px, min(4vw, 5.6vh), 44px);
+    flex-shrink: 0;
+  }
+
+  .ing-label {
+    font-size: clamp(0.54rem, min(0.92vw, 1.6vh), 0.76rem);
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  #fx-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 50;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="fx-canvas" width="384" height="647"></canvas>
+
+<div class="kitchen-book">
+  <!-- Top Header -->
+  <div class="header-wrapper">
+    <div class="header-bar">
+      <div class="chef-tag">👩‍🍳 Chef Arin's Kitchen</div>
+      <div class="puffy-title">
+        🌎 <span>ARIN'S</span> <span class="gold">WORLD CHEF</span> <span class="mint">STATION</span> 🍳
+      </div>
+      <div class="controls-row">
+        <button class="sticker-btn mint" id="auto-recipe-btn">🪄 Classic Set</button>
+        <button class="sticker-btn" id="all-twelve-btn">🍱 All 12!</button>
+        <button class="sticker-btn pink" id="clear-plate-btn">🍽️ Clear Plate</button>
+        <button class="sticker-btn sky" id="save-html-btn">💾 Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2-Pane Split Body -->
+  <div class="two-pane">
+    <!-- Left Pane: Chef Arin & Seamlessly Merged Dish Art -->
+    <div class="left-pane">
+      <div class="cloud-speech pop" id="speech-bubble">"Yum! Paella with Golden Rice + Herb Rice + Saffron Rice + Crispy Rice + Chicken + Chorizo + Sea Fish + Shrimp + Tomato + Lemon is ready!" 🎉</div>
+
+      <div class="kitchen-stage" id="stage-tap" title="Tap Chef Arin!">
+        <svg id="chef-svg" class="chef-svg bounce" viewBox="0 0 260 265" xmlns="http://www.w3.org/2000/svg">
+          <!-- Back Hair -->
+          <path d="M 70 86 C 54 114, 54 152, 70 174 C 82 190, 102 192, 130 190 C 158 192, 178 190, 190 174 C 206 152, 206 114, 190 86 C 190 48, 164 32, 130 32 C 96 32, 70 48, 70 86 Z" fill="#3B2822" stroke="#3D2B24" stroke-width="4.2" stroke-linejoin="round"></path>
+
+          <!-- Chef Arin Arms -->
+          <path d="M 96 154 C 74 160, 66 178, 74 194" fill="none" stroke="#3D2B24" stroke-width="13" stroke-linecap="round"></path>
+          <path d="M 96 154 C 74 160, 66 178, 74 194" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"></path>
+          <circle cx="75" cy="197" r="7.5" fill="#FFE4D6" stroke="#3D2B24" stroke-width="3"></circle>
+
+          <path d="M 164 154 C 186 160, 194 178, 186 194" fill="none" stroke="#3D2B24" stroke-width="13" stroke-linecap="round"></path>
+          <path d="M 164 154 C 186 160, 194 178, 186 194" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"></path>
+          <circle cx="185" cy="197" r="7.5" fill="#FFE4D6" stroke="#3D2B24" stroke-width="3"></circle>
+
+          <!-- Chef Jacket & Apron -->
+          <path d="M 94 142 L 166 142 L 172 206 L 88 206 Z" fill="#FFFFFF" stroke="#3D2B24" stroke-width="3.8" stroke-linejoin="round"></path>
+          <polygon points="130,147 116,142 120,153" fill="#FF6FA5" stroke="#3D2B24" stroke-width="2"></polygon>
+          <polygon points="130,147 144,142 140,153" fill="#FF6FA5" stroke="#3D2B24" stroke-width="2"></polygon>
+          <circle cx="130" cy="147" r="3" fill="#FDE047" stroke="#3D2B24" stroke-width="1.6"></circle>
+          <path d="M 104 156 L 156 156 L 160 206 L 100 206 Z" fill="#FBCFE8" stroke="#3D2B24" stroke-width="3" stroke-linejoin="round"></path>
+
+          <!-- Neck -->
+          <rect x="120" y="130" width="20" height="14" rx="5" fill="#FFE4D6" stroke="#3D2B24" stroke-width="3.2"></rect>
+
+          <!-- Head & Face (5:5 Center Part + Arched Brows + No Glasses) -->
+          <g id="head-group">
+            <circle cx="72" cy="96" r="10" fill="#FFE4D6" stroke="#3D2B24" stroke-width="3.6"></circle>
+            <circle cx="188" cy="96" r="10" fill="#FFE4D6" stroke="#3D2B24" stroke-width="3.6"></circle>
+            <rect x="74" y="38" width="112" height="96" rx="46" fill="#FFE4D6" stroke="#3D2B24" stroke-width="4"></rect>
+
+            <!-- 5:5 Center-Parted Hair Front Curtains -->
+            <path d="M 130 32 C 97 32, 72 49, 73 92 C 74 100, 77 107, 81 111 C 82 90, 88 68, 104 55 C 116 45, 126 41, 130 39 Z" fill="#3B2822" stroke="#3D2B24" stroke-width="3.8" stroke-linejoin="round"></path>
+            <path d="M 130 32 C 163 32, 188 49, 187 92 C 186 100, 183 107, 179 111 C 178 90, 172 68, 156 55 C 144 45, 134 41, 130 39 Z" fill="#3B2822" stroke="#3D2B24" stroke-width="3.8" stroke-linejoin="round"></path>
+            <path d="M 130 32 L 130 40" stroke="#3D2B24" stroke-width="3" stroke-linecap="round"></path>
+
+            <!-- Puffy White Chef Hat -->
+            <g transform="translate(130, 26)">
+              <circle cx="-18" cy="-10" r="13" fill="#FFFFFF" stroke="#3D2B24" stroke-width="3.2"></circle>
+              <circle cx="0" cy="-14" r="15" fill="#FFFFFF" stroke="#3D2B24" stroke-width="3.2"></circle>
+              <circle cx="18" cy="-10" r="13" fill="#FFFFFF" stroke="#3D2B24" stroke-width="3.2"></circle>
+              <rect x="-24" y="-6" width="48" height="14" rx="4" fill="#FFFFFF" stroke="#3D2B24" stroke-width="3.2"></rect>
+              <line x1="-22" y1="2" x2="22" y2="2" stroke="#FF6FA5" stroke-width="3"></line>
+            </g>
+
+            <!-- Soft Arched Eyebrows -->
+            <path d="M 98 76 Q 106 71 114 76" fill="none" stroke="#3D2B24" stroke-width="2.6" stroke-linecap="round"></path>
+            <path d="M 146 76 Q 154 71 162 76" fill="none" stroke="#3D2B24" stroke-width="2.6" stroke-linecap="round"></path>
+
+            <!-- Sparkling Eyes -->
+            <ellipse cx="106" cy="90" rx="7.5" ry="8.5" fill="#3D2B24"></ellipse>
+            <circle cx="103" cy="87" r="3.2" fill="#FFFFFF"></circle>
+            <ellipse cx="154" cy="90" rx="7.5" ry="8.5" fill="#3D2B24"></ellipse>
+            <circle cx="151" cy="87" r="3.2" fill="#FFFFFF"></circle>
+
+            <!-- Rosy Cheeks & Smile -->
+            <ellipse cx="90" cy="103" rx="9" ry="5.5" fill="#FF9EBB" opacity="0.68"></ellipse>
+            <ellipse cx="170" cy="103" rx="9" ry="5.5" fill="#FF9EBB" opacity="0.68"></ellipse>
+            <path id="chef-mouth-smile" d="M 122 108 Q 130 115 138 108" fill="none" stroke="#3D2B24" stroke-width="3.2" stroke-linecap="round" style="display: none;"></path>
+            <path id="chef-mouth-yay" d="M 120 106 Q 130 121 140 106 Z" fill="#FB7185" stroke="#3D2B24" stroke-width="2.6" style="display: inline;"></path>
+          </g>
+
+          <!-- ==================== COOKING COUNTER & UNIFIED DISH ==================== -->
+          <rect x="18" y="198" width="224" height="62" rx="16" fill="#FED7AA" stroke="#3D2B24" stroke-width="3.8"></rect>
+          <rect x="26" y="204" width="208" height="12" rx="6" fill="#FFEDD5"></rect>
+
+          <!-- Plate / Serving Dish -->
+          <ellipse id="plate-outer" cx="130" cy="229" rx="84" ry="23" fill="#FFFFFF" stroke="#3D2B24" stroke-width="3.5"></ellipse>
+          <ellipse id="plate-inner" cx="130" cy="229" rx="68" ry="16" fill="#FFFDF7" stroke="#CBD5E1" stroke-width="2"></ellipse>
+
+          <!-- Unified Dish Canvas (Raw ingredients or freshly cooked merged dish!) -->
+          <g id="unified-dish-layer"><ellipse cx="130" cy="229" rx="50" ry="12.5" fill="#FDE68A" stroke="#3D2B24" stroke-width="2.2"></ellipse><g transform="translate(103, 204) scale(1.12)"><ellipse cx="24" cy="24" rx="15" ry="10" fill="#FDE047" stroke="#3D2B24" stroke-width="2.3"></ellipse></g><g transform="translate(112, 207) scale(0.78)"><ellipse cx="24" cy="24" rx="15" ry="10" fill="#BEF264" stroke="#3D2B24" stroke-width="2.3"></ellipse></g><g transform="translate(118, 211) scale(0.72)"><ellipse cx="24" cy="24" rx="15" ry="10" fill="#FACC15" stroke="#3D2B24" stroke-width="2.3"></ellipse></g><g transform="translate(108, 210) scale(0.7)"><ellipse cx="24" cy="24" rx="16" ry="10" fill="#F59E0B" stroke="#3D2B24" stroke-width="2.5"></ellipse></g><g transform="translate(96, 206) scale(0.66)"><ellipse cx="24" cy="24" rx="12" ry="8" fill="#FDBA74" stroke="#3D2B24" stroke-width="2.2"></ellipse></g><g transform="translate(124, 206) scale(0.66)"><circle cx="18" cy="22" r="5.5" fill="#DC2626" stroke="#3D2B24" stroke-width="1.8"></circle><circle cx="29" cy="26" r="5.5" fill="#B91C1C" stroke="#3D2B24" stroke-width="1.8"></circle></g><g transform="translate(102, 212) scale(0.64)"><ellipse cx="24" cy="24" rx="13" ry="8" fill="#60A5FA" stroke="#3D2B24" stroke-width="2.2"></ellipse></g><g transform="translate(122, 213) scale(0.64)"><path d="M 13 28 C 12 16, 28 12, 35 21 C 38 25, 33 30, 29 27 C 26 24, 28 19, 22 20 C 18 21, 18 26, 13 28 Z" fill="#FB7185" stroke="#3D2B24" stroke-width="2.2"></path></g><g transform="translate(113, 203) scale(0.62)"><circle cx="24" cy="24" r="11" fill="#EF4444" stroke="#3D2B24" stroke-width="2.2"></circle></g><g transform="translate(105, 208) scale(0.6)"><ellipse cx="24" cy="24" rx="12" ry="8" fill="#FDE047" stroke="#3D2B24" stroke-width="2.2"></ellipse></g></g>
+
+          <!-- Steam Waves when Cooked -->
+          <g id="cooked-steam" class="steam-wave" style="display: inline;" stroke="#FFFFFF" stroke-width="3.2" fill="none" stroke-linecap="round">
+            <path d="M 98 184 Q 93 173 98 162"></path>
+            <path d="M 130 179 Q 125 168 130 157"></path>
+            <path d="M 162 184 Q 157 173 162 162"></path>
+          </g>
+        </svg>
+      </div>
+
+      <div class="cook-action-row">
+        <button class="cook-btn" id="cook-now-btn">✨ Paella Served!</button>
+      </div>
+
+      <div class="glam-box">
+        <div class="glam-top">
+          <span id="current-dish-label">🇪🇸 Spain · Paella</span>
+          <span class="pct-pill" id="world-count-pill">1 / 8 Cooked!</span>
+        </div>
+        <div class="rainbow-track">
+          <div class="rainbow-fill" id="world-fill" style="width: 13%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Pane: 8 World Dishes + Illustrated Ingredients -->
+    <div class="right-pane">
+      <div class="world-menu-box">
+        <div class="section-head">
+          <span class="cloud-tag ct-gold">🌍 1. Choose World Dish (8)</span>
+          <span class="recipe-hint" id="recipe-hint-text">Blend rice, seafood &amp; lemon into Paella!</span>
+        </div>
+        <div class="dish-grid-8" id="dish-grid"><button class="dish-btn"><svg class="dish-mini-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="28" rx="18" ry="8" fill="#E11D48" stroke="#3D2B24" stroke-width="2.4"></ellipse>
+                 <rect x="11" y="21" width="12" height="5" rx="2.5" fill="#FFFBEB" stroke="#3D2B24" stroke-width="1.6"></rect>
+                 <rect x="25" y="22" width="12" height="5" rx="2.5" fill="#FFFBEB" stroke="#3D2B24" stroke-width="1.6"></rect>
+                 <circle cx="18" cy="29" r="3.5" fill="#FDE047" stroke="#3D2B24" stroke-width="1.5"></circle></svg><span class="dish-name">Tteokbokki</span></button><button class="dish-btn"><svg class="dish-mini-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="25" r="17" fill="#FBBF24" stroke="#3D2B24" stroke-width="2.4"></circle>
+                 <circle cx="24" cy="25" r="13" fill="#EF4444" stroke="#3D2B24" stroke-width="1.5"></circle>
+                 <circle cx="19" cy="21" r="3.5" fill="#FFFBEB"></circle>
+                 <circle cx="29" cy="23" r="3.5" fill="#FFFBEB"></circle>
+                 <circle cx="24" cy="30" r="3.5" fill="#FFFBEB"></circle>
+                 <circle cx="24" cy="25" r="2.5" fill="#22C55E"></circle></svg><span class="dish-name">Pizza</span></button><button class="dish-btn"><svg class="dish-mini-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="28" rx="18" ry="8" fill="#FFFFFF" stroke="#3D2B24" stroke-width="2.2"></ellipse>
+                 <rect x="11" y="18" width="11" height="10" rx="3" fill="#3B2822" stroke="#3D2B24" stroke-width="1.8"></rect>
+                 <circle cx="16.5" cy="23" r="3.5" fill="#FB7185"></circle>
+                 <rect x="26" y="18" width="11" height="10" rx="3" fill="#3B2822" stroke="#3D2B24" stroke-width="1.8"></rect>
+                 <circle cx="31.5" cy="23" r="3.5" fill="#F97316"></circle></svg><span class="dish-name">Sushi Roll</span></button><button class="dish-btn"><svg class="dish-mini-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 8 30 Q 24 11 40 30 Z" fill="#FBBF24" stroke="#3D2B24" stroke-width="2.4" stroke-linejoin="round"></path>
+                  <path d="M 13 27 Q 24 18 35 27" fill="#22C55E" stroke="#3D2B24" stroke-width="1.8"></path>
+                  <circle cx="20" cy="26" r="2.8" fill="#EF4444"></circle>
+                  <circle cx="28" cy="26" r="2.8" fill="#F97316"></circle></svg><span class="dish-name">Taco</span></button><button class="dish-btn"><svg class="dish-mini-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="26" rx="18" ry="12" fill="#FDE68A" stroke="#3D2B24" stroke-width="2.4"></ellipse>
+                  <path d="M 12 24 Q 24 32 36 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"></path>
+                  <circle cx="19" cy="22" r="3.5" fill="#F43F5E" stroke="#3D2B24" stroke-width="1.4"></circle>
+                  <circle cx="29" cy="22" r="3.5" fill="#F43F5E" stroke="#3D2B24" stroke-width="1.4"></circle></svg><span class="dish-name">Crepe</span></button><button class="dish-btn"><svg class="dish-mini-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 10 21 Q 24 10 38 21 Z" fill="#F59E0B" stroke="#3D2B24" stroke-width="2.3" stroke-linejoin="round"></path>
+               <rect x="10" y="22" width="28" height="4" rx="2" fill="#22C55E" stroke="#3D2B24" stroke-width="1.6"></rect>
+               <rect x="9" y="26" width="30" height="5" rx="2.5" fill="#78350F" stroke="#3D2B24" stroke-width="1.8"></rect>
+               <rect x="10" y="31" width="28" height="6" rx="3" fill="#F59E0B" stroke="#3D2B24" stroke-width="2.2"></rect></svg><span class="dish-name">Burger</span></button><button class="dish-btn"><svg class="dish-mini-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="27" rx="18" ry="9" fill="#FDE047" stroke="#3D2B24" stroke-width="2.3"></ellipse>
+                    <path d="M 12 25 Q 24 19 36 25" fill="none" stroke="#FB923C" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M 28 21 C 34 17, 38 22, 33 26" fill="#FB7185" stroke="#3D2B24" stroke-width="1.6"></path></svg><span class="dish-name">Pad Thai</span></button><button class="dish-btn active"><svg class="dish-mini-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="26" rx="19" ry="11" fill="#FACC15" stroke="#3D2B24" stroke-width="2.4"></ellipse>
+                 <circle cx="17" cy="25" r="2.5" fill="#EF4444"></circle>
+                 <circle cx="30" cy="26" r="2.5" fill="#22C55E"></circle>
+                 <path d="M 21 20 C 26 16, 30 21, 25 24" fill="#FB7185" stroke="#3D2B24" stroke-width="1.5"></path></svg><span class="dish-name">✓ Paella</span></button></div>
+      </div>
+
+      <div class="pantry-grid">
+        <div class="pantry-card theme-pink">
+          <div class="section-head">
+            <span class="cloud-tag ct-pink" id="cat1-title">🥘 Pan Rice</span>
+          </div>
+          <div class="ing-grid-4" id="pantry-cat1"><button class="ing-btn selected"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="24" rx="15" ry="10" fill="#FACC15" stroke="#3D2B24" stroke-width="2.3"></ellipse></svg><span class="ing-label">Saffron Rice</span></button><button class="ing-btn selected"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="24" rx="15" ry="10" fill="#FDE047" stroke="#3D2B24" stroke-width="2.3"></ellipse></svg><span class="ing-label">Golden Rice</span></button><button class="ing-btn selected"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="24" rx="16" ry="10" fill="#F59E0B" stroke="#3D2B24" stroke-width="2.5"></ellipse></svg><span class="ing-label">Crispy Rice</span></button><button class="ing-btn selected"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="24" rx="15" ry="10" fill="#BEF264" stroke="#3D2B24" stroke-width="2.3"></ellipse></svg><span class="ing-label">Herb Rice</span></button></div>
+        </div>
+
+        <div class="pantry-card theme-mint">
+          <div class="section-head">
+            <span class="cloud-tag ct-mint" id="cat2-title">🍤 Seafood &amp; Meat</span>
+          </div>
+          <div class="ing-grid-4" id="pantry-cat2"><button class="ing-btn selected"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 13 28 C 12 16, 28 12, 35 21 C 38 25, 33 30, 29 27 C 26 24, 28 19, 22 20 C 18 21, 18 26, 13 28 Z" fill="#FB7185" stroke="#3D2B24" stroke-width="2.2"></path></svg><span class="ing-label">Shrimp</span></button><button class="ing-btn selected"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="24" rx="13" ry="8" fill="#60A5FA" stroke="#3D2B24" stroke-width="2.2"></ellipse></svg><span class="ing-label">Sea Fish</span></button><button class="ing-btn selected"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="24" rx="12" ry="8" fill="#FDBA74" stroke="#3D2B24" stroke-width="2.2"></ellipse></svg><span class="ing-label">Chicken</span></button><button class="ing-btn selected"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="22" r="5.5" fill="#DC2626" stroke="#3D2B24" stroke-width="1.8"></circle><circle cx="29" cy="26" r="5.5" fill="#B91C1C" stroke="#3D2B24" stroke-width="1.8"></circle></svg><span class="ing-label">Chorizo</span></button></div>
+        </div>
+
+        <div class="pantry-card theme-sky">
+          <div class="section-head">
+            <span class="cloud-tag ct-sky" id="cat3-title">🍋 Lemon &amp; Herbs</span>
+          </div>
+          <div class="ing-grid-4" id="pantry-cat3"><button class="ing-btn selected"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="24" rx="12" ry="8" fill="#FDE047" stroke="#3D2B24" stroke-width="2.2"></ellipse></svg><span class="ing-label">Lemon</span></button><button class="ing-btn selected"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="11" fill="#EF4444" stroke="#3D2B24" stroke-width="2.2"></circle></svg><span class="ing-label">Tomato</span></button><button class="ing-btn"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="24" rx="11" ry="6" fill="#22C55E" stroke="#3D2B24" stroke-width="2"></ellipse></svg><span class="ing-label">Parsley</span></button><button class="ing-btn"><svg class="ing-art" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="24" rx="8" ry="10" fill="#1E293B" stroke="#3D2B24" stroke-width="2.2"></ellipse></svg><span class="ing-label">Olives</span></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const foodArt = {
+    dish_korea: `<ellipse cx="24" cy="28" rx="18" ry="8" fill="#E11D48" stroke="#3D2B24" stroke-width="2.4"/>
+                 <rect x="11" y="21" width="12" height="5" rx="2.5" fill="#FFFBEB" stroke="#3D2B24" stroke-width="1.6"/>
+                 <rect x="25" y="22" width="12" height="5" rx="2.5" fill="#FFFBEB" stroke="#3D2B24" stroke-width="1.6"/>
+                 <circle cx="18" cy="29" r="3.5" fill="#FDE047" stroke="#3D2B24" stroke-width="1.5"/>`,
+    dish_italy: `<circle cx="24" cy="25" r="17" fill="#FBBF24" stroke="#3D2B24" stroke-width="2.4"/>
+                 <circle cx="24" cy="25" r="13" fill="#EF4444" stroke="#3D2B24" stroke-width="1.5"/>
+                 <circle cx="19" cy="21" r="3.5" fill="#FFFBEB"/>
+                 <circle cx="29" cy="23" r="3.5" fill="#FFFBEB"/>
+                 <circle cx="24" cy="30" r="3.5" fill="#FFFBEB"/>
+                 <circle cx="24" cy="25" r="2.5" fill="#22C55E"/>`,
+    dish_japan: `<ellipse cx="24" cy="28" rx="18" ry="8" fill="#FFFFFF" stroke="#3D2B24" stroke-width="2.2"/>
+                 <rect x="11" y="18" width="11" height="10" rx="3" fill="#3B2822" stroke="#3D2B24" stroke-width="1.8"/>
+                 <circle cx="16.5" cy="23" r="3.5" fill="#FB7185"/>
+                 <rect x="26" y="18" width="11" height="10" rx="3" fill="#3B2822" stroke="#3D2B24" stroke-width="1.8"/>
+                 <circle cx="31.5" cy="23" r="3.5" fill="#F97316"/>`,
+    dish_mexico: `<path d="M 8 30 Q 24 11 40 30 Z" fill="#FBBF24" stroke="#3D2B24" stroke-width="2.4" stroke-linejoin="round"/>
+                  <path d="M 13 27 Q 24 18 35 27" fill="#22C55E" stroke="#3D2B24" stroke-width="1.8"/>
+                  <circle cx="20" cy="26" r="2.8" fill="#EF4444"/>
+                  <circle cx="28" cy="26" r="2.8" fill="#F97316"/>`,
+    dish_france: `<ellipse cx="24" cy="26" rx="18" ry="12" fill="#FDE68A" stroke="#3D2B24" stroke-width="2.4"/>
+                  <path d="M 12 24 Q 24 32 36 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+                  <circle cx="19" cy="22" r="3.5" fill="#F43F5E" stroke="#3D2B24" stroke-width="1.4"/>
+                  <circle cx="29" cy="22" r="3.5" fill="#F43F5E" stroke="#3D2B24" stroke-width="1.4"/>`,
+    dish_usa: `<path d="M 10 21 Q 24 10 38 21 Z" fill="#F59E0B" stroke="#3D2B24" stroke-width="2.3" stroke-linejoin="round"/>
+               <rect x="10" y="22" width="28" height="4" rx="2" fill="#22C55E" stroke="#3D2B24" stroke-width="1.6"/>
+               <rect x="9" y="26" width="30" height="5" rx="2.5" fill="#78350F" stroke="#3D2B24" stroke-width="1.8"/>
+               <rect x="10" y="31" width="28" height="6" rx="3" fill="#F59E0B" stroke="#3D2B24" stroke-width="2.2"/>`,
+    dish_thailand: `<ellipse cx="24" cy="27" rx="18" ry="9" fill="#FDE047" stroke="#3D2B24" stroke-width="2.3"/>
+                    <path d="M 12 25 Q 24 19 36 25" fill="none" stroke="#FB923C" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M 28 21 C 34 17, 38 22, 33 26" fill="#FB7185" stroke="#3D2B24" stroke-width="1.6"/>`,
+    dish_spain: `<ellipse cx="24" cy="26" rx="19" ry="11" fill="#FACC15" stroke="#3D2B24" stroke-width="2.4"/>
+                 <circle cx="17" cy="25" r="2.5" fill="#EF4444"/>
+                 <circle cx="30" cy="26" r="2.5" fill="#22C55E"/>
+                 <path d="M 21 20 C 26 16, 30 21, 25 24" fill="#FB7185" stroke="#3D2B24" stroke-width="1.5"/>`,
+
+    // Korea ingredients
+    k_tteok: `<rect x="10" y="15" width="24" height="7" rx="3.5" fill="#FFFBEB" stroke="#3D2B24" stroke-width="2.2"/>
+              <rect x="14" y="25" width="24" height="7" rx="3.5" fill="#FFFBEB" stroke="#3D2B24" stroke-width="2.2"/>`,
+    k_cheese_tteok: `<rect x="10" y="16" width="28" height="16" rx="5" fill="#FACC15" stroke="#3D2B24" stroke-width="2.2"/>
+                     <circle cx="19" cy="23" r="2.5" fill="#F59E0B"/><circle cx="29" cy="25" r="2.5" fill="#F59E0B"/>`,
+    k_ramen: `<path d="M 9 20 Q 16 13 24 20 T 39 20" fill="none" stroke="#FBBF24" stroke-width="3.6" stroke-linecap="round"/>
+              <path d="M 9 28 Q 16 21 24 28 T 39 28" fill="none" stroke="#F59E0B" stroke-width="3.6" stroke-linecap="round"/>`,
+    k_glass: `<path d="M 10 21 C 16 14, 22 28, 28 20 C 33 14, 36 24, 39 21" fill="none" stroke="#E2E8F0" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M 10 28 C 16 21, 22 35, 28 27 C 33 21, 36 31, 39 28" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/>`,
+    k_fishcake: `<path d="M 10 18 L 38 14 L 38 22 L 10 26 Z" fill="#FEF3C7" stroke="#3D2B24" stroke-width="2.2" stroke-linejoin="round"/>
+                <path d="M 10 29 L 38 25 L 38 33 L 10 37 Z" fill="#FDE68A" stroke="#3D2B24" stroke-width="2.2" stroke-linejoin="round"/>`,
+    k_egg: `<ellipse cx="24" cy="24" rx="13" ry="10" fill="#FFFFFF" stroke="#3D2B24" stroke-width="2.2"/><circle cx="24" cy="24" r="5.5" fill="#FACC15" stroke="#3D2B24" stroke-width="1.6"/>`,
+    k_dumpling: `<path d="M 9 28 C 9 15, 39 15, 39 28 Z" fill="#FDE68A" stroke="#3D2B24" stroke-width="2.3" stroke-linejoin="round"/><path d="M 14 22 L 17 25 M 24 20 L 24 25 M 34 22 L 31 25" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>`,
+    k_sausage: `<rect x="11" y="14" width="11" height="20" rx="5.5" fill="#EF4444" stroke="#3D2B24" stroke-width="2.2"/><rect x="26" y="14" width="11" height="20" rx="5.5" fill="#EF4444" stroke="#3D2B24" stroke-width="2.2"/>`,
+    k_chili: `<path d="M 12 31 C 22 33, 34 24, 37 13" fill="none" stroke="#DC2626" stroke-width="6.5" stroke-linecap="round"/><path d="M 37 13 L 40 9" stroke="#16A34A" stroke-width="3" stroke-linecap="round"/>`,
+    k_soy_glaze: `<path d="M 18 14 L 30 14 L 34 34 L 14 34 Z" fill="#92400E" stroke="#3D2B24" stroke-width="2.2"/><rect x="20" y="9" width="8" height="5" rx="1.5" fill="#FDE047" stroke="#3D2B24" stroke-width="1.8"/>`,
+    k_green_onion: `<line x1="11" y1="30" x2="37" y2="18" stroke="#22C55E" stroke-width="5.5" stroke-linecap="round"/><line x1="18" y1="26.5" x2="18" y2="29.5" stroke="#FFFFFF" stroke-width="2"/><line x1="29" y1="21.5" x2="29" y2="24.5" stroke="#FFFFFF" stroke-width="2"/>`,
+    k_sesame: `<circle cx="16" cy="20" r="3" fill="#FEF9C3" stroke="#3D2B24" stroke-width="1.5"/><circle cx="25" cy="17" r="3" fill="#FDE047" stroke="#3D2B24" stroke-width="1.5"/><circle cx="32" cy="25" r="3" fill="#FEF9C3" stroke="#3D2B24" stroke-width="1.5"/><circle cx="21" cy="29" r="3" fill="#FDE047" stroke="#3D2B24" stroke-width="1.5"/>`,
+
+    // Italy
+    i_classic: `<ellipse cx="24" cy="24" rx="16" ry="11" fill="#FDE68A" stroke="#3D2B24" stroke-width="2.4"/>`,
+    i_crispy: `<ellipse cx="24" cy="24" rx="17" ry="8" fill="#F59E0B" stroke="#3D2B24" stroke-width="2.3"/>`,
+    i_stuffed: `<ellipse cx="24" cy="24" rx="16" ry="11" fill="#FACC15" stroke="#3D2B24" stroke-width="2.8"/>`,
+    i_heart: `<path d="M 24 36 C 10 26, 8 14, 17 13 C 21 13, 23 16, 24 18 C 25 16, 27 13, 31 13 C 40 14, 38 26, 24 36 Z" fill="#FDE68A" stroke="#3D2B24" stroke-width="2.3"/>`,
+    i_mozzarella: `<path d="M 11 26 Q 24 14 37 26 Q 24 34 11 26 Z" fill="#FFFBEB" stroke="#3D2B24" stroke-width="2.2"/>`,
+    i_pepperoni: `<circle cx="18" cy="21" r="6" fill="#DC2626" stroke="#3D2B24" stroke-width="2"/><circle cx="30" cy="27" r="6" fill="#DC2626" stroke="#3D2B24" stroke-width="2"/>`,
+    i_mushroom: `<path d="M 12 24 C 12 14, 36 14, 36 24 Z" fill="#D97706" stroke="#3D2B24" stroke-width="2.2"/><rect x="20" y="24" width="8" height="10" rx="3" fill="#FEF3C7" stroke="#3D2B24" stroke-width="2"/>`,
+    i_shrimp: `<path d="M 13 28 C 12 16, 28 12, 35 21 C 38 25, 33 30, 29 27 C 26 24, 28 19, 22 20 C 18 21, 18 26, 13 28 Z" fill="#FB7185" stroke="#3D2B24" stroke-width="2.2"/>`,
+    i_tomato: `<circle cx="24" cy="25" r="12" fill="#EF4444" stroke="#3D2B24" stroke-width="2.3"/><path d="M 24 13 L 22 9 M 24 13 L 27 10" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round"/>`,
+    i_basil: `<ellipse cx="19" cy="24" rx="7" ry="4.5" transform="rotate(-25 19 24)" fill="#22C55E" stroke="#3D2B24" stroke-width="2"/><ellipse cx="29" cy="24" rx="7" ry="4.5" transform="rotate(25 29 24)" fill="#16A34A" stroke="#3D2B24" stroke-width="2"/>`,
+    i_olive: `<ellipse cx="18" cy="24" rx="6" ry="7.5" fill="#1E293B" stroke="#3D2B24" stroke-width="2"/><circle cx="18" cy="24" r="2" fill="#EF4444"/><ellipse cx="31" cy="24" rx="6" ry="7.5" fill="#1E293B" stroke="#3D2B24" stroke-width="2"/>`,
+    i_honey_drizz: `<path d="M 24 11 C 16 20, 14 26, 14 29 A 10 10 0 0 0 34 29 C 34 26, 32 20, 24 11 Z" fill="#FBBF24" stroke="#3D2B24" stroke-width="2.3"/>`,
+
+    // Japan
+    j_vinegar_rice: `<path d="M 10 24 L 38 24 L 34 35 L 14 35 Z" fill="#FFFFFF" stroke="#3D2B24" stroke-width="2.2"/><circle cx="19" cy="21" r="6" fill="#FFFFFF" stroke="#3D2B24" stroke-width="2"/><circle cx="28" cy="21" r="6" fill="#FFFFFF" stroke="#3D2B24" stroke-width="2"/>`,
+    j_nori_roll: `<rect x="12" y="14" width="24" height="20" rx="6" fill="#FFFFFF" stroke="#3D2B24" stroke-width="2.3"/><rect x="12" y="20" width="24" height="8" fill="#1E293B" stroke="#3D2B24" stroke-width="1.8"/>`,
+    j_tamago_base: `<rect x="11" y="16" width="26" height="16" rx="5" fill="#FDE047" stroke="#3D2B24" stroke-width="2.3"/>`,
+    j_flower_roll: `<circle cx="24" cy="24" r="12" fill="#FBCFE8" stroke="#3D2B24" stroke-width="2.3"/><circle cx="24" cy="24" r="5" fill="#FF6FA5"/>`,
+    j_salmon: `<path d="M 11 26 Q 24 14 37 26 Q 24 33 11 26 Z" fill="#FB7185" stroke="#3D2B24" stroke-width="2.2"/><path d="M 17 23 L 21 27 M 25 22 L 29 26" stroke="#FFF1F2" stroke-width="2" stroke-linecap="round"/>`,
+    j_shrimp: `<path d="M 13 28 C 12 16, 28 12, 35 21 C 38 25, 33 30, 29 27 C 26 24, 28 19, 22 20 C 18 21, 18 26, 13 28 Z" fill="#FB7185" stroke="#3D2B24" stroke-width="2.2"/>`,
+    j_tuna: `<path d="M 11 26 Q 24 14 37 26 Q 24 33 11 26 Z" fill="#DC2626" stroke="#3D2B24" stroke-width="2.2"/>`,
+    j_avocado: `<ellipse cx="24" cy="24" rx="11" ry="13" fill="#86EFAC" stroke="#3D2B24" stroke-width="2.3"/><circle cx="24" cy="27" r="5" fill="#92400E" stroke="#3D2B24" stroke-width="1.8"/>`,
+    j_soy: `<path d="M 18 14 L 30 14 L 34 34 L 14 34 Z" fill="#451A03" stroke="#3D2B24" stroke-width="2.2"/><rect x="20" y="9" width="8" height="5" rx="1.5" fill="#FDE047" stroke="#3D2B24" stroke-width="1.8"/>`,
+    j_ginger: `<path d="M 12 24 Q 24 16 36 24 Q 24 32 12 24 Z" fill="#FBCFE8" stroke="#3D2B24" stroke-width="2"/>`,
+    j_sesame: `<circle cx="17" cy="20" r="2.8" fill="#3D2B24"/><circle cx="26" cy="18" r="2.8" fill="#3D2B24"/><circle cx="31" cy="26" r="2.8" fill="#3D2B24"/><circle cx="21" cy="29" r="2.8" fill="#3D2B24"/>`,
+    j_green: `<rect x="11" y="18" width="26" height="11" rx="5.5" fill="#4ADE80" stroke="#3D2B24" stroke-width="2.2"/>`,
+
+    // Mexico
+    m_corn_shell: `<path d="M 10 31 Q 24 12 38 31 Z" fill="#FACC15" stroke="#3D2B24" stroke-width="2.4"/>`,
+    m_soft_tortilla: `<ellipse cx="24" cy="24" rx="16" ry="10" fill="#FEF3C7" stroke="#3D2B24" stroke-width="2.3"/>`,
+    m_pink_shell: `<path d="M 10 31 Q 24 12 38 31 Z" fill="#FF8FAB" stroke="#3D2B24" stroke-width="2.4"/>`,
+    m_mini_taco: `<path d="M 12 29 Q 24 16 36 29 Z" fill="#FDE047" stroke="#3D2B24" stroke-width="2.2"/>`,
+    m_beef: `<circle cx="18" cy="22" r="5" fill="#9A3412" stroke="#3D2B24" stroke-width="1.8"/><circle cx="28" cy="26" r="5.5" fill="#7C2D12" stroke="#3D2B24" stroke-width="1.8"/>`,
+    m_chicken: `<ellipse cx="24" cy="24" rx="12" ry="8" fill="#FDBA74" stroke="#3D2B24" stroke-width="2.2"/>`,
+    m_beans: `<ellipse cx="18" cy="22" rx="4.5" ry="3.5" fill="#334155" stroke="#3D2B24" stroke-width="1.6"/><ellipse cx="29" cy="26" rx="4.5" ry="3.5" fill="#334155" stroke="#3D2B24" stroke-width="1.6"/>`,
+    m_corn_kern: `<ellipse cx="24" cy="24" rx="8" ry="12" fill="#FACC15" stroke="#3D2B24" stroke-width="2.2"/>`,
+    m_guac: `<circle cx="24" cy="25" r="11" fill="#4ADE80" stroke="#3D2B24" stroke-width="2.3"/>`,
+    m_salsa: `<circle cx="19" cy="22" r="4.5" fill="#EF4444" stroke="#3D2B24" stroke-width="1.6"/><circle cx="29" cy="26" r="4.5" fill="#F97316" stroke="#3D2B24" stroke-width="1.6"/>`,
+    m_cheese: `<polygon points="12,31 24,14 36,31" fill="#FACC15" stroke="#3D2B24" stroke-width="2.2" stroke-linejoin="round"/>`,
+    m_lime: `<path d="M 13 24 A 11 11 0 0 0 35 24 Z" fill="#4ADE80" stroke="#3D2B24" stroke-width="2.2"/>`,
+
+    // France
+    f_classic_crepe: `<ellipse cx="24" cy="24" rx="17" ry="11" fill="#FDE68A" stroke="#3D2B24" stroke-width="2.3"/>`,
+    f_vanilla_crepe: `<ellipse cx="24" cy="24" rx="17" ry="11" fill="#FFFBEB" stroke="#3D2B24" stroke-width="2.3"/>`,
+    f_cocoa_crepe: `<ellipse cx="24" cy="24" rx="17" ry="11" fill="#B45309" stroke="#3D2B24" stroke-width="2.3"/>`,
+    f_matcha_crepe: `<ellipse cx="24" cy="24" rx="17" ry="11" fill="#86EFAC" stroke="#3D2B24" stroke-width="2.3"/>`,
+    f_strawberry: `<path d="M 24 35 C 14 27, 13 15, 24 14 C 35 15, 34 27, 24 35 Z" fill="#F43F5E" stroke="#3D2B24" stroke-width="2.2"/>`,
+    f_banana: `<path d="M 13 16 C 14 30, 27 35, 36 27 C 28 29, 20 24, 18 14 Z" fill="#FACC15" stroke="#3D2B24" stroke-width="2.2" stroke-linejoin="round"/>`,
+    f_peach: `<circle cx="24" cy="24" r="11" fill="#FDBA74" stroke="#3D2B24" stroke-width="2.2"/>`,
+    f_berry: `<circle cx="18" cy="24" r="5.5" fill="#6366F1" stroke="#3D2B24" stroke-width="1.8"/><circle cx="29" cy="24" r="5.5" fill="#4F46E5" stroke="#3D2B24" stroke-width="1.8"/>`,
+    f_honey: `<path d="M 24 11 C 16 20, 14 26, 14 29 A 10 10 0 0 0 34 29 C 34 26, 32 20, 24 11 Z" fill="#FBBF24" stroke="#3D2B24" stroke-width="2.3"/>`,
+    f_cream: `<path d="M 12 31 Q 24 10 36 31 Z" fill="#FFFFFF" stroke="#3D2B24" stroke-width="2.3" stroke-linejoin="round"/>`,
+    f_choco: `<path d="M 12 22 Q 24 32 36 22" fill="none" stroke="#78350F" stroke-width="4.5" stroke-linecap="round"/>`,
+    f_sugar: `<polygon points="24,11 27,20 36,20 29,25 32,34 24,28 16,34 19,25 12,20 21,20" fill="#FDE047" stroke="#3D2B24" stroke-width="1.8"/>`,
+
+    // USA
+    u_sesame_bun: `<path d="M 10 28 Q 24 12 38 28 Z" fill="#F59E0B" stroke="#3D2B24" stroke-width="2.3"/>`,
+    u_brioche_bun: `<path d="M 10 28 Q 24 13 38 28 Z" fill="#FBBF24" stroke="#3D2B24" stroke-width="2.3"/>`,
+    u_pink_bun: `<path d="M 10 28 Q 24 13 38 28 Z" fill="#FF8FAB" stroke="#3D2B24" stroke-width="2.3"/>`,
+    u_mini_slider: `<rect x="11" y="17" width="26" height="14" rx="6" fill="#FDE68A" stroke="#3D2B24" stroke-width="2.3"/>`,
+    u_beef_patty: `<ellipse cx="24" cy="24" rx="14" ry="8" fill="#78350F" stroke="#3D2B24" stroke-width="2.3"/>`,
+    u_crispy_chk: `<ellipse cx="24" cy="24" rx="14" ry="9" fill="#FBBF24" stroke="#3D2B24" stroke-width="2.3"/>`,
+    u_cheese: `<polygon points="11,28 24,15 37,28 24,35" fill="#FACC15" stroke="#3D2B24" stroke-width="2.2"/>`,
+    u_bacon: `<path d="M 11 20 Q 17 15 24 20 T 37 20" fill="none" stroke="#E11D48" stroke-width="6" stroke-linecap="round"/>`,
+    u_lettuce: `<path d="M 10 24 Q 17 15 24 24 T 38 24" fill="none" stroke="#22C55E" stroke-width="6" stroke-linecap="round"/>`,
+    u_tomato: `<circle cx="24" cy="24" r="11" fill="#EF4444" stroke="#3D2B24" stroke-width="2.2"/>`,
+    u_avocado: `<ellipse cx="24" cy="24" rx="11" ry="13" fill="#86EFAC" stroke="#3D2B24" stroke-width="2.2"/><circle cx="24" cy="26" r="4.5" fill="#92400E"/>`,
+    u_special_sauce: `<circle cx="24" cy="24" r="10" fill="#FDE047" stroke="#3D2B24" stroke-width="2.2"/>`,
+
+    // Thailand
+    t_rice_noodle: `<path d="M 9 20 Q 17 13 24 20 T 39 20" fill="none" stroke="#FEF9C3" stroke-width="4" stroke-linecap="round"/><path d="M 9 28 Q 17 21 24 28 T 39 28" fill="none" stroke="#FDE68A" stroke-width="4" stroke-linecap="round"/>`,
+    t_glass_noodle: `<path d="M 10 21 C 16 14, 22 28, 28 20 C 33 14, 36 24, 39 21" fill="none" stroke="#E2E8F0" stroke-width="3.5" stroke-linecap="round"/>`,
+    t_egg_noodle: `<path d="M 9 20 Q 17 13 24 20 T 39 20" fill="none" stroke="#FACC15" stroke-width="4" stroke-linecap="round"/><path d="M 9 28 Q 17 21 24 28 T 39 28" fill="none" stroke="#F59E0B" stroke-width="4" stroke-linecap="round"/>`,
+    t_jasmine_side: `<path d="M 11 24 L 37 24 L 33 34 L 15 34 Z" fill="#FFFFFF" stroke="#3D2B24" stroke-width="2.2"/>`,
+    t_shrimp: `<path d="M 13 28 C 12 16, 28 12, 35 21 C 38 25, 33 30, 29 27 C 26 24, 28 19, 22 20 C 18 21, 18 26, 13 28 Z" fill="#FB7185" stroke="#3D2B24" stroke-width="2.2"/>`,
+    t_chicken: `<ellipse cx="24" cy="24" rx="12" ry="8" fill="#FDBA74" stroke="#3D2B24" stroke-width="2.2"/>`,
+    t_egg: `<ellipse cx="24" cy="24" rx="12" ry="9" fill="#FDE047" stroke="#3D2B24" stroke-width="2.2"/>`,
+    t_peanuts: `<circle cx="18" cy="22" r="5" fill="#D97706" stroke="#3D2B24" stroke-width="1.8"/><circle cx="29" cy="26" r="5" fill="#B45309" stroke="#3D2B24" stroke-width="1.8"/>`,
+    t_lime: `<path d="M 13 24 A 11 11 0 0 0 35 24 Z" fill="#4ADE80" stroke="#3D2B24" stroke-width="2.2"/>`,
+    t_chili: `<path d="M 12 31 C 22 33, 34 24, 37 13" fill="none" stroke="#EF4444" stroke-width="6" stroke-linecap="round"/>`,
+    t_herb: `<ellipse cx="24" cy="24" rx="11" ry="6" fill="#22C55E" stroke="#3D2B24" stroke-width="2"/>`,
+    t_sweet_sauce: `<circle cx="24" cy="24" r="10" fill="#D97706" stroke="#3D2B24" stroke-width="2.2"/>`,
+
+    // Spain
+    s_saffron_rice: `<ellipse cx="24" cy="24" rx="15" ry="10" fill="#FACC15" stroke="#3D2B24" stroke-width="2.3"/>`,
+    s_golden_rice: `<ellipse cx="24" cy="24" rx="15" ry="10" fill="#FDE047" stroke="#3D2B24" stroke-width="2.3"/>`,
+    s_paella_pan: `<ellipse cx="24" cy="24" rx="16" ry="10" fill="#F59E0B" stroke="#3D2B24" stroke-width="2.5"/>`,
+    s_herb_rice: `<ellipse cx="24" cy="24" rx="15" ry="10" fill="#BEF264" stroke="#3D2B24" stroke-width="2.3"/>`,
+    s_shrimp: `<path d="M 13 28 C 12 16, 28 12, 35 21 C 38 25, 33 30, 29 27 C 26 24, 28 19, 22 20 C 18 21, 18 26, 13 28 Z" fill="#FB7185" stroke="#3D2B24" stroke-width="2.2"/>`,
+    s_fish: `<ellipse cx="24" cy="24" rx="13" ry="8" fill="#60A5FA" stroke="#3D2B24" stroke-width="2.2"/>`,
+    s_chicken: `<ellipse cx="24" cy="24" rx="12" ry="8" fill="#FDBA74" stroke="#3D2B24" stroke-width="2.2"/>`,
+    s_chorizo: `<circle cx="18" cy="22" r="5.5" fill="#DC2626" stroke="#3D2B24" stroke-width="1.8"/><circle cx="29" cy="26" r="5.5" fill="#B91C1C" stroke="#3D2B24" stroke-width="1.8"/>`,
+    s_lemon: `<ellipse cx="24" cy="24" rx="12" ry="8" fill="#FDE047" stroke="#3D2B24" stroke-width="2.2"/>`,
+    s_tomato: `<circle cx="24" cy="24" r="11" fill="#EF4444" stroke="#3D2B24" stroke-width="2.2"/>`,
+    s_parsley: `<ellipse cx="24" cy="24" rx="11" ry="6" fill="#22C55E" stroke="#3D2B24" stroke-width="2"/>`,
+    s_olive: `<ellipse cx="24" cy="24" rx="8" ry="10" fill="#1E293B" stroke="#3D2B24" stroke-width="2.2"/>`
+  };
+
+  function makeMiniSvg(artMarkup, cls = 'ing-art') {
+    return `<svg class="${cls}" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">${artMarkup}</svg>`;
+  }
+
+  // Build an authentic cooked dish illustration that transforms based on the dish & chosen ingredients
+  function buildMergedDishSvg(dish, items, cooked) {
+    const ids = new Set(items.map(x => x.id));
+    document.getElementById('plate-inner').setAttribute('fill', cooked ? '#FFFDF7' : '#F8FAFC');
+
+    if (!cooked) {
+      if (items.length === 0) return '';
+      const cluster = [
+        { dx: 96,  dy: 204, sc: 0.68 },
+        { dx: 118, dy: 206, sc: 0.68 },
+        { dx: 106, dy: 196, sc: 0.64 },
+        { dx: 126, dy: 198, sc: 0.62 },
+        { dx: 86,  dy: 207, sc: 0.60 },
+        { dx: 134, dy: 207, sc: 0.60 },
+        { dx: 98,  dy: 211, sc: 0.58 },
+        { dx: 122, dy: 211, sc: 0.58 },
+        { dx: 112, dy: 202, sc: 0.56 },
+        { dx: 92,  dy: 200, sc: 0.55 },
+        { dx: 130, dy: 201, sc: 0.55 },
+        { dx: 110, dy: 213, sc: 0.54 }
+      ];
+      return items.map((item, idx) => {
+        const c = cluster[idx % cluster.length];
+        return `<g transform="translate(${c.dx}, ${c.dy}) scale(${c.sc})">${foodArt[item.id] || ''}</g>`;
+      }).join('');
+    }
+
+    // Cooked state: draw a cohesive, realistic dish shape per country, customized by selected ingredients!
+    if (dish.id === 'korea') {
+      const hasSoy = ids.has('k_soy_glaze');
+      const sauceFill = hasSoy ? '#B45309' : '#E11D48';
+      const sauceHighlight = hasSoy ? '#D97706' : '#FB7185';
+      const hasCheese = ids.has('k_cheese_tteok');
+      const hasEgg = ids.has('k_egg');
+      const hasFishcake = ids.has('k_fishcake');
+      const hasDumpling = ids.has('k_dumpling');
+      const hasSausage = ids.has('k_sausage');
+      const hasRamen = ids.has('k_ramen');
+      const hasGlass = ids.has('k_glass');
+      const hasOnion = ids.has('k_green_onion');
+      const hasSesame = ids.has('k_sesame');
+
+      let g = '';
+      // Saucy tteokbokki pool hugging the inner plate
+      g += `<path d="M 76 231 Q 104 221 130 223 Q 156 221 184 231 Q 168 241 130 241 Q 92 241 76 231 Z" fill="${sauceFill}" stroke="#3D2B24" stroke-width="2.4"/>`;
+      g += `<path d="M 92 229 Q 130 224 166 230" fill="none" stroke="${sauceHighlight}" stroke-width="2.6" stroke-linecap="round"/>`;
+
+      if (hasRamen || hasGlass) {
+        const noodleCol = hasRamen ? '#FBBF24' : '#F1F5F9';
+        g += `<path d="M 94 228 Q 112 221 130 228 T 166 228" fill="none" stroke="${noodleCol}" stroke-width="3.6" stroke-linecap="round"/>`;
+      }
+
+      // Glossy glazed rice cakes (tteok) nestled inside the sauce
+      g += `<rect x="88" y="224" width="17" height="6.5" rx="3.2" fill="#FFFBEB" stroke="#3D2B24" stroke-width="2"/>`;
+      g += `<rect x="114" y="227" width="18" height="6.5" rx="3.2" fill="#FEF3C7" stroke="#3D2B24" stroke-width="2"/>`;
+      g += `<rect x="142" y="224" width="17" height="6.5" rx="3.2" fill="#FFFBEB" stroke="#3D2B24" stroke-width="2"/>`;
+
+      if (hasFishcake) {
+        g += `<path d="M 96 220 L 122 217 L 122 223 L 96 226 Z" fill="#FDE68A" stroke="#3D2B24" stroke-width="1.9"/>`;
+      }
+      if (hasSausage) {
+        g += `<rect x="136" y="218" width="14" height="6" rx="3" fill="#EF4444" stroke="#3D2B24" stroke-width="1.9"/>`;
+      }
+      if (hasDumpling) {
+        g += `<path d="M 104 223 C 104 214, 122 214, 122 223 Z" fill="#FDE68A" stroke="#3D2B24" stroke-width="2"/>`;
+      }
+      if (hasEgg) {
+        g += `<ellipse cx="148" cy="228" rx="9" ry="6.5" fill="#FFFFFF" stroke="#3D2B24" stroke-width="2"/>`;
+        g += `<circle cx="148" cy="228" r="3.5" fill="#FACC15" stroke="#3D2B24" stroke-width="1.3"/>`;
+      }
+      if (hasCheese) {
+        g += `<path d="M 102 221 Q 130 215 156 222 Q 144 233 130 231 Q 116 234 102 221 Z" fill="#FACC15" opacity="0.88" stroke="#D97706" stroke-width="1.6"/>`;
+      }
+      if (hasOnion) {
+        g += `<path d="M 98 222 L 106 219 M 126 220 L 134 217 M 150 223 L 158 220" stroke="#22C55E" stroke-width="2.4" stroke-linecap="round"/>`;
+      }
+      if (hasSesame) {
+        g += `<circle cx="108" cy="226" r="1.5" fill="#FFFFFF"/><circle cx="124" cy="224" r="1.5" fill="#FFFFFF"/><circle cx="138" cy="226" r="1.5" fill="#FFFFFF"/>`;
+      }
+      return g;
+    }
+
+    if (dish.id === 'italy') {
+      const hasHoney = ids.has('i_honey_drizz');
+      const sauceColor = hasHoney ? '#F59E0B' : '#EF4444';
+      const hasCheese = ids.has('i_mozzarella') || ids.has('i_stuffed');
+      const hasPep = ids.has('i_pepperoni');
+      const hasMush = ids.has('i_mushroom');
+      const hasShrimp = ids.has('i_shrimp');
+      const hasTomato = ids.has('i_tomato');
+      const hasBasil = ids.has('i_basil');
+      const hasOlive = ids.has('i_olive');
+
+      let p = '';
+      // Baked golden pizza crust ellipse on the plate
+      p += `<ellipse cx="130" cy="229" rx="54" ry="15.5" fill="#F59E0B" stroke="#3D2B24" stroke-width="2.6"/>`;
+      // Baked sauce & melted cheese disc
+      p += `<ellipse cx="130" cy="229" rx="46" ry="12" fill="${sauceColor}" stroke="#3D2B24" stroke-width="1.8"/>`;
+      if (hasCheese || !hasTomato) {
+        p += `<ellipse cx="130" cy="229" rx="41" ry="9.5" fill="#FEF08A" opacity="0.92"/>`;
+      }
+      // Slice cut lines for real pizza look
+      p += `<line x1="92" y1="229" x2="168" y2="229" stroke="#D97706" stroke-width="1.4" opacity="0.65"/>`;
+      p += `<line x1="130" y1="218" x2="130" y2="240" stroke="#D97706" stroke-width="1.4" opacity="0.65"/>`;
+
+      if (hasPep) {
+        p += `<ellipse cx="110" cy="226" rx="5.5" ry="3.2" fill="#DC2626" stroke="#3D2B24" stroke-width="1.3"/>`;
+        p += `<ellipse cx="146" cy="231" rx="5.5" ry="3.2" fill="#DC2626" stroke="#3D2B24" stroke-width="1.3"/>`;
+        p += `<ellipse cx="134" cy="223" rx="4.5" ry="2.6" fill="#DC2626" stroke="#3D2B24" stroke-width="1.3"/>`;
+      }
+      if (hasMush) {
+        p += `<ellipse cx="118" cy="232" rx="4.5" ry="2.8" fill="#D97706" stroke="#3D2B24" stroke-width="1.3"/>`;
+        p += `<ellipse cx="140" cy="226" rx="4.5" ry="2.8" fill="#D97706" stroke="#3D2B24" stroke-width="1.3"/>`;
+      }
+      if (hasShrimp) {
+        p += `<path d="M 112 229 C 115 224, 123 224, 125 228" fill="none" stroke="#FB7185" stroke-width="3.2" stroke-linecap="round"/>`;
+        p += `<path d="M 135 231 C 138 226, 146 226, 148 230" fill="none" stroke="#FB7185" stroke-width="3.2" stroke-linecap="round"/>`;
+      }
+      if (hasTomato) {
+        p += `<circle cx="122" cy="226" r="3" fill="#EF4444"/><circle cx="142" cy="229" r="3" fill="#EF4444"/>`;
+      }
+      if (hasOlive) {
+        p += `<circle cx="115" cy="230" r="2.2" fill="#1E293B"/><circle cx="148" cy="226" r="2.2" fill="#1E293B"/>`;
+      }
+      if (hasBasil) {
+        p += `<ellipse cx="126" cy="228" rx="4.5" ry="2.4" fill="#22C55E"/><ellipse cx="137" cy="231" rx="4.5" ry="2.4" fill="#16A34A"/>`;
+      }
+      if (hasHoney) {
+        p += `<path d="M 96 227 Q 130 235 164 227" fill="none" stroke="#FBBF24" stroke-width="2.6" stroke-linecap="round"/>`;
+      }
+      return p;
+    }
+
+    // For other countries, build a unified central dish cluster on the plate
+    let u = `<ellipse cx="130" cy="229" rx="50" ry="12.5" fill="${dish.plateTint || '#FEF3C7'}" stroke="#3D2B24" stroke-width="2.2"/>`;
+    if (items[0] && foodArt[items[0].id]) {
+      u += `<g transform="translate(103, 204) scale(1.12)">${foodArt[items[0].id]}</g>`;
+    } else {
+      u += `<g transform="translate(103, 204) scale(1.12)">${foodArt[dish.artKey]}</g>`;
+    }
+    const sub = [
+      { dx: 112, dy: 207, sc: 0.78 },
+      { dx: 118, dy: 211, sc: 0.72 },
+      { dx: 108, dy: 210, sc: 0.70 },
+      { dx: 96,  dy: 206, sc: 0.66 },
+      { dx: 124, dy: 206, sc: 0.66 },
+      { dx: 102, dy: 212, sc: 0.64 },
+      { dx: 122, dy: 213, sc: 0.64 },
+      { dx: 113, dy: 203, sc: 0.62 },
+      { dx: 105, dy: 208, sc: 0.60 },
+      { dx: 119, dy: 208, sc: 0.60 },
+      { dx: 113, dy: 214, sc: 0.58 }
+    ];
+    items.slice(1, 12).forEach((item, idx) => {
+      const s = sub[idx % sub.length];
+      u += `<g transform="translate(${s.dx}, ${s.dy}) scale(${s.sc})">${foodArt[item.id] || ''}</g>`;
+    });
+    return u;
+  }
+
+  const worldDishes = [
+    {
+      id: 'korea', country: '🇰🇷 Korea', name: 'Tteokbokki', artKey: 'dish_korea', plateTint: '#FECDD3',
+      hint: 'Blend rice cakes, fish cake & sauce into Tteokbokki!',
+      cat1Title: '🍡 Rice & Noodles', cat2Title: '🍢 Toppings', cat3Title: '🌶️ Sauce & Garnish',
+      cat1: [
+        { id: 'k_tteok', label: 'Rice Cake' }, { id: 'k_cheese_tteok', label: 'Cheese Cake' },
+        { id: 'k_ramen', label: 'Ramen' }, { id: 'k_glass', label: 'Glass Noodle' }
+      ],
+      cat2: [
+        { id: 'k_fishcake', label: 'Fish Cake' }, { id: 'k_egg', label: 'Boiled Egg' },
+        { id: 'k_dumpling', label: 'Dumpling' }, { id: 'k_sausage', label: 'Sausage' }
+      ],
+      cat3: [
+        { id: 'k_chili', label: 'Chili Sauce' }, { id: 'k_soy_glaze', label: 'Sweet Soy' },
+        { id: 'k_green_onion', label: 'Green Onion' }, { id: 'k_sesame', label: 'Sesame' }
+      ]
+    },
+    {
+      id: 'italy', country: '🇮🇹 Italy', name: 'Pizza', artKey: 'dish_italy', plateTint: '#FDE68A',
+      hint: 'Blend dough, cheese & toppings into Pizza!',
+      cat1Title: '🍕 Crust', cat2Title: '🧀 Toppings', cat3Title: '🍅 Sauce & Herbs',
+      cat1: [
+        { id: 'i_classic', label: 'Classic Dough' }, { id: 'i_crispy', label: 'Thin Crust' },
+        { id: 'i_stuffed', label: 'Cheese Crust' }, { id: 'i_heart', label: 'Heart Dough' }
+      ],
+      cat2: [
+        { id: 'i_mozzarella', label: 'Mozzarella' }, { id: 'i_pepperoni', label: 'Pepperoni' },
+        { id: 'i_mushroom', label: 'Mushroom' }, { id: 'i_shrimp', label: 'Shrimp' }
+      ],
+      cat3: [
+        { id: 'i_tomato', label: 'Tomato Sauce' }, { id: 'i_basil', label: 'Basil' },
+        { id: 'i_olive', label: 'Olives' }, { id: 'i_honey_drizz', label: 'Honey Drizzle' }
+      ]
+    },
+    {
+      id: 'japan', country: '🇯🇵 Japan', name: 'Sushi Roll', artKey: 'dish_japan', plateTint: '#BAE6FD',
+      hint: 'Blend sushi rice, seafood & dip into Sushi Roll!',
+      cat1Title: '🍚 Rice & Roll', cat2Title: '🍣 Seafood', cat3Title: '🍶 Dip & Garnish',
+      cat1: [
+        { id: 'j_vinegar_rice', label: 'Sushi Rice' }, { id: 'j_nori_roll', label: 'Nori Roll' },
+        { id: 'j_tamago_base', label: 'Egg Roll' }, { id: 'j_flower_roll', label: 'Blossom Roll' }
+      ],
+      cat2: [
+        { id: 'j_salmon', label: 'Salmon' }, { id: 'j_shrimp', label: 'Shrimp' },
+        { id: 'j_tuna', label: 'Tuna' }, { id: 'j_avocado', label: 'Avocado' }
+      ],
+      cat3: [
+        { id: 'j_soy', label: 'Soy Sauce' }, { id: 'j_ginger', label: 'Ginger' },
+        { id: 'j_sesame', label: 'Sesame' }, { id: 'j_green', label: 'Cucumber' }
+      ]
+    },
+    {
+      id: 'mexico', country: '🇲🇽 Mexico', name: 'Taco', artKey: 'dish_mexico', plateTint: '#A7F3D0',
+      hint: 'Blend shell, filling & salsa into Taco!',
+      cat1Title: '🌮 Shell', cat2Title: '🥩 Filling', cat3Title: '🥑 Salsa & Topping',
+      cat1: [
+        { id: 'm_corn_shell', label: 'Corn Shell' }, { id: 'm_soft_tortilla', label: 'Tortilla' },
+        { id: 'm_pink_shell', label: 'Pink Shell' }, { id: 'm_mini_taco', label: 'Mini Taco' }
+      ],
+      cat2: [
+        { id: 'm_beef', label: 'Beef' }, { id: 'm_chicken', label: 'Chicken' },
+        { id: 'm_beans', label: 'Black Beans' }, { id: 'm_corn_kern', label: 'Sweet Corn' }
+      ],
+      cat3: [
+        { id: 'm_guac', label: 'Guacamole' }, { id: 'm_salsa', label: 'Red Salsa' },
+        { id: 'm_cheese', label: 'Cheddar' }, { id: 'm_lime', label: 'Lime' }
+      ]
+    },
+    {
+      id: 'france', country: '🇫🇷 France', name: 'Crepe', artKey: 'dish_france', plateTint: '#FBCFE8',
+      hint: 'Blend crepe, fruit & syrup into Crepe!',
+      cat1Title: '🥞 Crepe Base', cat2Title: '🍓 Fruits', cat3Title: '🍯 Cream & Syrup',
+      cat1: [
+        { id: 'f_classic_crepe', label: 'Classic Crepe' }, { id: 'f_vanilla_crepe', label: 'Vanilla' },
+        { id: 'f_cocoa_crepe', label: 'Cocoa' }, { id: 'f_matcha_crepe', label: 'Matcha' }
+      ],
+      cat2: [
+        { id: 'f_strawberry', label: 'Strawberry' }, { id: 'f_banana', label: 'Banana' },
+        { id: 'f_peach', label: 'Peach' }, { id: 'f_berry', label: 'Blueberry' }
+      ],
+      cat3: [
+        { id: 'f_honey', label: 'Honey' }, { id: 'f_cream', label: 'Whipped Cream' },
+        { id: 'f_choco', label: 'Chocolate' }, { id: 'f_sugar', label: 'Star Sugar' }
+      ]
+    },
+    {
+      id: 'usa', country: '🇺🇸 USA', name: 'Burger', artKey: 'dish_usa', plateTint: '#FEF08A',
+      hint: 'Blend bun, patty & toppings into Burger!',
+      cat1Title: '🍔 Bun', cat2Title: '🥩 Patty & Cheese', cat3Title: '🥬 Veggies & Sauce',
+      cat1: [
+        { id: 'u_sesame_bun', label: 'Sesame Bun' }, { id: 'u_brioche_bun', label: 'Brioche' },
+        { id: 'u_pink_bun', label: 'Pink Bun' }, { id: 'u_mini_slider', label: 'Mini Bun' }
+      ],
+      cat2: [
+        { id: 'u_beef_patty', label: 'Beef Patty' }, { id: 'u_crispy_chk', label: 'Chicken' },
+        { id: 'u_cheese', label: 'Cheese' }, { id: 'u_bacon', label: 'Bacon' }
+      ],
+      cat3: [
+        { id: 'u_lettuce', label: 'Lettuce' }, { id: 'u_tomato', label: 'Tomato' },
+        { id: 'u_avocado', label: 'Avocado' }, { id: 'u_special_sauce', label: 'Golden Sauce' }
+      ]
+    },
+    {
+      id: 'thailand', country: '🇹🇭 Thailand', name: 'Pad Thai', artKey: 'dish_thailand', plateTint: '#FED7AA',
+      hint: 'Blend noodles, shrimp & lime into Pad Thai!',
+      cat1Title: '🍜 Noodles', cat2Title: '🍤 Protein & Nuts', cat3Title: '🍋 Lime & Spice',
+      cat1: [
+        { id: 't_rice_noodle', label: 'Rice Noodle' }, { id: 't_glass_noodle', label: 'Wok Noodle' },
+        { id: 't_egg_noodle', label: 'Egg Noodle' }, { id: 't_jasmine_side', label: 'Jasmine Rice' }
+      ],
+      cat2: [
+        { id: 't_shrimp', label: 'Shrimp' }, { id: 't_chicken', label: 'Chicken' },
+        { id: 't_egg', label: 'Egg' }, { id: 't_peanuts', label: 'Peanuts' }
+      ],
+      cat3: [
+        { id: 't_lime', label: 'Lime' }, { id: 't_chili', label: 'Chili' },
+        { id: 't_herb', label: 'Herbs' }, { id: 't_sweet_sauce', label: 'Tamarind' }
+      ]
+    },
+    {
+      id: 'spain', country: '🇪🇸 Spain', name: 'Paella', artKey: 'dish_spain', plateTint: '#FDE68A',
+      hint: 'Blend rice, seafood & lemon into Paella!',
+      cat1Title: '🥘 Pan Rice', cat2Title: '🍤 Seafood & Meat', cat3Title: '🍋 Lemon & Herbs',
+      cat1: [
+        { id: 's_saffron_rice', label: 'Saffron Rice' }, { id: 's_golden_rice', label: 'Golden Rice' },
+        { id: 's_paella_pan', label: 'Crispy Rice' }, { id: 's_herb_rice', label: 'Herb Rice' }
+      ],
+      cat2: [
+        { id: 's_shrimp', label: 'Shrimp' }, { id: 's_fish', label: 'Sea Fish' },
+        { id: 's_chicken', label: 'Chicken' }, { id: 's_chorizo', label: 'Chorizo' }
+      ],
+      cat3: [
+        { id: 's_lemon', label: 'Lemon' }, { id: 's_tomato', label: 'Tomato' },
+        { id: 's_parsley', label: 'Parsley' }, { id: 's_olive', label: 'Olives' }
+      ]
+    }
+  ];
+
+  const allIngredientsMap = {};
+  worldDishes.forEach(d => {
+    [...d.cat1, ...d.cat2, ...d.cat3].forEach(item => {
+      allIngredientsMap[item.id] = item;
+    });
+  });
+
+  let currentDish = worldDishes[0];
+  let selectedIngredients = [];
+  let isCooked = false;
+  const cookedHistory = new Set();
+
+  let audioCtx = null;
+  function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  function playPopSound(step = 1) {
+    try {
+      const ctx = getAudioCtx();
+      const freqs = [523.25, 659.25, 783.99, 1046.50];
+      const f = freqs[Math.min(step - 1, 3)] || 523.25;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(f, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(f * 1.25, ctx.currentTime + 0.14);
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.24);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.25);
+    } catch (e) {}
+  }
+
+  function playCookFanfare() {
+    try {
+      const ctx = getAudioCtx();
+      const notes = [523.25, 659.25, 783.99, 1046.50, 987.77, 1046.50];
+      const times = [0, 0.1, 0.2, 0.32, 0.48, 0.62];
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + times[i]);
+        gain.gain.setValueAtTime(0.24, ctx.currentTime + times[i]);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + times[i] + 0.36);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + times[i]);
+        osc.stop(ctx.currentTime + times[i] + 0.38);
+      });
+    } catch (e) {}
+  }
+
+  function renderDishMenu() {
+    const grid = document.getElementById('dish-grid');
+    grid.innerHTML = '';
+    worldDishes.forEach(dish => {
+      const btn = document.createElement('button');
+      btn.className = 'dish-btn' + (dish.id === currentDish.id ? ' active' : '');
+      const checkTag = cookedHistory.has(dish.id) ? '✓ ' : '';
+      btn.innerHTML = `${makeMiniSvg(foodArt[dish.artKey], 'dish-mini-svg')}<span class="dish-name">${checkTag}${dish.name}</span>`;
+      btn.addEventListener('click', () => {
+        currentDish = dish;
+        selectedIngredients = [];
+        isCooked = false;
+        playPopSound(1);
+        updateKitchenUI(`"Now cooking ${dish.country} ${dish.name}! Pick ingredients!" 👩‍🍳`);
+      });
+      grid.appendChild(btn);
+    });
+  }
+
+  function renderDishIngredients() {
+    document.getElementById('cat1-title').textContent = currentDish.cat1Title;
+    document.getElementById('cat2-title').textContent = currentDish.cat2Title;
+    document.getElementById('cat3-title').textContent = currentDish.cat3Title;
+
+    [
+      ['pantry-cat1', currentDish.cat1],
+      ['pantry-cat2', currentDish.cat2],
+      ['pantry-cat3', currentDish.cat3]
+    ].forEach(([elId, list]) => {
+      const container = document.getElementById(elId);
+      container.innerHTML = '';
+      list.forEach(item => {
+        const btn = document.createElement('button');
+        const isSel = selectedIngredients.includes(item.id);
+        btn.className = 'ing-btn' + (isSel ? ' selected' : '');
+        btn.innerHTML = `${makeMiniSvg(foodArt[item.id] || '', 'ing-art')}<span class="ing-label">${item.label}</span>`;
+        btn.addEventListener('click', () => {
+          isCooked = false;
+          if (selectedIngredients.includes(item.id)) {
+            selectedIngredients = selectedIngredients.filter(x => x !== item.id);
+            updateKitchenUI(`"Removed ${item.label}!" 🍽️`);
+          } else {
+            if (selectedIngredients.length >= 12) {
+              selectedIngredients.shift();
+            }
+            selectedIngredients.push(item.id);
+            playPopSound(selectedIngredients.length);
+            updateKitchenUI(`"Added ${item.label} to ${currentDish.name}!" ✨`);
+          }
+        });
+        container.appendChild(btn);
+      });
+    });
+  }
+
+  function updateKitchenUI(speechText) {
+    renderDishMenu();
+    renderDishIngredients();
+
+    document.getElementById('current-dish-label').textContent = `${currentDish.country} · ${currentDish.name}`;
+    document.getElementById('recipe-hint-text').textContent = currentDish.hint;
+
+    const chosenItems = selectedIngredients.map(id => allIngredientsMap[id]).filter(Boolean);
+    document.getElementById('unified-dish-layer').innerHTML = buildMergedDishSvg(currentDish, chosenItems, isCooked);
+    document.getElementById('cooked-steam').style.display = isCooked ? 'inline' : 'none';
+
+    if (isCooked) {
+      document.getElementById('chef-mouth-smile').style.display = 'none';
+      document.getElementById('chef-mouth-yay').style.display = 'inline';
+    } else {
+      document.getElementById('chef-mouth-smile').style.display = 'inline';
+      document.getElementById('chef-mouth-yay').style.display = 'none';
+    }
+
+    const cookBtn = document.getElementById('cook-now-btn');
+    cookBtn.textContent = isCooked
+      ? `✨ ${currentDish.name} Served!`
+      : `🔥 Cook ${currentDish.name}! (${chosenItems.length} picked)`;
+
+    const doneCount = cookedHistory.size;
+    const pct = Math.round((doneCount / worldDishes.length) * 100);
+    document.getElementById('world-fill').style.width = pct + '%';
+    document.getElementById('world-count-pill').textContent = `${doneCount} / ${worldDishes.length} Cooked!`;
+
+    if (speechText) {
+      const bubble = document.getElementById('speech-bubble');
+      bubble.textContent = speechText;
+      bubble.classList.remove('pop');
+      void bubble.offsetWidth;
+      bubble.classList.add('pop');
+    }
+
+    const svg = document.getElementById('chef-svg');
+    svg.classList.remove('bounce');
+    void svg.offsetWidth;
+    svg.classList.add('bounce');
+  }
+
+  function cookCurrentDish() {
+    if (selectedIngredients.length === 0) {
+      selectedIngredients = [
+        currentDish.cat1[0].id,
+        currentDish.cat2[0].id,
+        currentDish.cat3[0].id
+      ];
+    }
+    isCooked = true;
+    cookedHistory.add(currentDish.id);
+    playCookFanfare();
+    launchGlitterFireworks();
+
+    const names = selectedIngredients
+      .map(id => allIngredientsMap[id]?.label)
+      .filter(Boolean)
+      .join(' + ');
+
+    updateKitchenUI(`"Yum! ${currentDish.name} with ${names} is ready!" 🎉`);
+  }
+
+  document.getElementById('cook-now-btn').addEventListener('click', cookCurrentDish);
+
+  document.getElementById('auto-recipe-btn').addEventListener('click', () => {
+    selectedIngredients = [
+      currentDish.cat1[0].id,
+      currentDish.cat2[0].id,
+      currentDish.cat3[0].id
+    ];
+    isCooked = false;
+    playPopSound(3);
+    updateKitchenUI(`"Loaded classic ${currentDish.name} set! Tap Cook!" 🪄`);
+  });
+
+  document.getElementById('all-twelve-btn').addEventListener('click', () => {
+    selectedIngredients = [
+      ...currentDish.cat1.map(x => x.id),
+      ...currentDish.cat2.map(x => x.id),
+      ...currentDish.cat3.map(x => x.id)
+    ];
+    isCooked = false;
+    playPopSound(4);
+    updateKitchenUI(`"All 12 ${currentDish.name} ingredients loaded! Tap Cook!" 🍱`);
+  });
+
+  document.getElementById('clear-plate-btn').addEventListener('click', () => {
+    selectedIngredients = [];
+    isCooked = false;
+    updateKitchenUI(`"Plate cleared! Pick ingredients for ${currentDish.name}!" 🍽️`);
+  });
+
+  document.getElementById('stage-tap').addEventListener('click', () => {
+    playPopSound(2);
+    const svg = document.getElementById('chef-svg');
+    svg.classList.remove('bounce');
+    void svg.offsetWidth;
+    svg.classList.add('bounce');
+  });
+
+  document.getElementById('save-html-btn').addEventListener('click', () => {
+    try {
+      const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'arin_world_chef_12max.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    } catch (e) {}
+  });
+
+  const canvas = document.getElementById('fx-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let animId = null;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function createGlitterBurst(x, y) {
+    const colors = ['#FF6FA5', '#FDE047', '#34D399', '#38BDF8', '#FB923C', '#C084FC'];
+    for (let i = 0; i < 46; i++) {
+      const angle = (Math.PI * 2 * i) / 46 + (Math.random() - 0.5) * 0.25;
+      const speed = 2.4 + Math.random() * 5.6;
+      particles.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        alpha: 1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: 4.5 + Math.random() * 4.5
+      });
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.07;
+      p.alpha -= 0.013;
+      ctx.globalAlpha = Math.max(0, p.alpha);
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    particles = particles.filter(p => p.alpha > 0);
+    if (particles.length > 0) {
+      animId = requestAnimationFrame(animateParticles);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      animId = null;
+    }
+  }
+
+  function launchGlitterFireworks() {
+    const w = canvas.width;
+    const h = canvas.height;
+    createGlitterBurst(w * 0.25, h * 0.28);
+    setTimeout(() => createGlitterBurst(w * 0.75, h * 0.25), 200);
+    setTimeout(() => createGlitterBurst(w * 0.50, h * 0.20), 400);
+    setTimeout(() => createGlitterBurst(w * 0.34, h * 0.45), 620);
+    setTimeout(() => createGlitterBurst(w * 0.66, h * 0.43), 820);
+    if (!animId) animateParticles();
+  }
+
+  updateKitchenUI();
+</script>
+
+
+</body></html>
